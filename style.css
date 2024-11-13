@@ -28,6 +28,7 @@ body{
 #buttons{
     height: 60%;
   width: 160px;
+  margin-top: 4%;
 }
 
 #operators{
@@ -36,11 +37,12 @@ body{
     justify-content: space-evenly;
 }
 
-.button{
-    height: 25px;
-    width: 35px;
-    border-radius: 10px;
-    text-align: center;
-    border: 1px solid black;
-
+.operator{
+    /* border: 2px solid red; */
+    border-radius: 35%;
+ color: white;
+ background-color:navy;
+    width: 15%;
+    display: flex;
+    justify-content: center;
 }
