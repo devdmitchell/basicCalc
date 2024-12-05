@@ -38,28 +38,83 @@ let secondNumber = '';
 
 // Calculate the result of the current expression, if valid, and display it on the screen
 function calcResult() {
-  // TODO
+  if (firstNumber === '' || secondNumber === '' || operation === '') {
+    return; 
+  }
+  let result;
+  let num1 = parseFloat(firstNumber); 
+  let num2 = parseFloat(secondNumber);  
+
+  if (operation === '+') {
+    result = num1 + num2;
+  } else if (operation === '-') {
+    result = num1 - num2;
+  } else if (operation === 'x') {
+    result = num1 * num2;
+  } else if (operation === '÷') {
+    if (num2 === 0) {
+      alert("Error: Division by zero");
+      clearScreen(); 
+      return;
+    }
+    result = num1 / num2;
+  }
+
+  firstNumber = result.toString();
+  secondNumber = '';
+  operation = '';
+
+  updateScreen();
 }
+
 
 // Handle operations when operation buttons (+, -, /, *) are pressed
 function operationPressed(op) {
-  // TODO
+  if (firstNumber !== '' && secondNumber !== '') {
+    calcResult();
+  }
+  operation = op;
+  updateScreen();
 }
 
 // Handle numeric input
 function numberPressed(number) {
-  // TODO
+  if (operation === '') {
+    firstNumber += number;
+  } else {
+    secondNumber += number; 
+  }
+  updateScreen();
+
 }
 
 // Clear the calculator screen
 function clearScreen() {
-  // TODO
+firstNumber = '';
+  secondNumber = '';
+  operation = '';
+  updateScreen();
 }
 
 // Update the screen based on `firstNumber`, `operation`, and `secondNumber`
 function updateScreen() {
-  // TODO
+ const screen = document.getElementById('screen');
+  screen.textContent = `${firstNumber} ${operation} ${secondNumber}`;
 }
 
 // TODO: Implement query selectors and add event listeners to the calculator buttons
+document.querySelectorAll('.button').forEach(button => {
+  button.addEventListener('click', () => {
+    const value = button.textContent;
 
+    if (!isNaN(value) || value === '.') {
+      numberPressed(value);
+    } else if (['+', '-', 'x', '÷'].includes(value)) {
+      operationPressed(value);
+    } else if (value === '=') {
+      calcResult();
+    } else if (value === 'C') {
+      clearScreen();
+    }
+  });
+});
